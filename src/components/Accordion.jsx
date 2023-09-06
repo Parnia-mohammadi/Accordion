@@ -20,26 +20,54 @@ const data = [
 ];
 
 function Accordion() {
+  const [open, setOpen] = useState(null);
+  const handleOpen = (id) => {
+    setOpen(open==id? null: id);
+  };
   return (
     <div className="accordion">
       {data.map((item) => (
-        <AccordionItem key={item.id} item={item} />
+        <AccordionItem
+          key={item.id}
+          title={item.title}
+          id={item.id}
+          onOpen={handleOpen}
+          open={open}
+        >
+          {item.text}
+        </AccordionItem>
       ))}
+      <AccordionItem
+        id={4}
+        title={"another Accordion"}
+        onOpen={handleOpen}
+        open={open}
+      >
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid
+          nostrum magnam id nulla consequuntur quia quaerat ex quas quae
+          voluptas aspernatur odio nisi, similique, inventore amet molestiae
+          repellat itaque deleniti.
+        </p>
+        <ul>
+          <li>hi</li>
+          <li>bye</li>
+        </ul>
+        <a href="#">a link</a>
+        <p>we can add anything in children props.</p>
+      </AccordionItem>
     </div>
   );
 }
 
 export default Accordion;
 
-function AccordionItem({ item }) {
-  const [isOpen, setIsOpen] = useState(false);
+function AccordionItem({ title, id, children, onOpen, open }) {
+  const isOpen = open == id;
   return (
     <div className={`accordion-item ${isOpen ? "accordion__expanded" : ""}`}>
-      <div
-        className="accordion-item__header"
-        onClick={() => setIsOpen((is) => !is)}
-      >
-        <div>{item.title}</div>
+      <div className="accordion-item__header" onClick={() => onOpen(id)}>
+        <div>{title}</div>
         {/* first way
         inline style when state changed */}
         {/* <ChevronDownIcon
@@ -50,9 +78,9 @@ function AccordionItem({ item }) {
           }}
         /> */}
         {/* second way */}
-        <ChevronDownIcon className="accordion-item__chevron"/>
+        <ChevronDownIcon className="accordion-item__chevron" />
       </div>
-      <div className="accordion-item__content">{item.text}</div>
+      <div className="accordion-item__content">{children}</div>
     </div>
   );
 }

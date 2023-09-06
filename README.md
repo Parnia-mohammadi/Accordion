@@ -1,6 +1,6 @@
-# Basic Accordion with chevron icon
+# Different Accordions with chevron icon
 
-This is a simple Accordion element.
+This is an Accordion element.here we rotate chevron icon onClick and in two versions, accordions open independently and dependently
 React + Vite
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
